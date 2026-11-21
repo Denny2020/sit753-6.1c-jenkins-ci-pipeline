@@ -16,14 +16,14 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Stage 1: Build') {
             steps {
                 echo "Task: compile the source and package ${APP_NAME} into a deployable artefact"
                 echo 'Tool: Maven (mvn clean package) - alternatives: Gradle, npm'
             }
         }
 
-        stage('Unit and Integration Tests') {
+        stage('Stage 2: Unit and Integration Tests') {
             steps {
                 echo 'Task: run unit tests to check each component works as expected'
                 echo 'Task: run integration tests to check the components work together'
@@ -31,35 +31,35 @@ pipeline {
             }
         }
 
-        stage('Code Analysis') {
+        stage('Stage 3: Code Analysis') {
             steps {
                 echo 'Task: analyse the code for bugs, code smells and duplication against industry standards'
                 echo 'Tool: SonarQube / SonarCloud (via the SonarQube Scanner for Jenkins plugin)'
             }
         }
 
-        stage('Security Scan') {
+        stage('Stage 4: Security Scan') {
             steps {
                 echo 'Task: scan the code and its dependencies for known vulnerabilities'
                 echo 'Tools: OWASP Dependency-Check (dependencies), Snyk or npm audit, Trivy (container image)'
             }
         }
 
-        stage('Deploy to Staging') {
+        stage('Stage 5: Deploy to Staging') {
             steps {
                 echo "Task: deploy the packaged artefact to the staging server: ${STAGING_SERVER}"
                 echo 'Tools: AWS CodeDeploy or Ansible (alternative: Docker + SSH Agent plugin)'
             }
         }
 
-        stage('Integration Tests on Staging') {
+        stage('Stage 6: Integration Tests on Staging') {
             steps {
                 echo "Task: run integration / end-to-end tests against ${STAGING_SERVER} (production-like environment)"
                 echo 'Tools: Selenium (UI), Postman / Newman (API)'
             }
         }
 
-        stage('Deploy to Production') {
+        stage('Stage 7: Deploy to Production') {
             steps {
                 echo "Task: deploy the verified release to the production server: ${PRODUCTION_SERVER}"
                 echo 'Tools: AWS CodeDeploy or Ansible (blue/green deployment)'
