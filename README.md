@@ -2,3 +2,4 @@
 This task is to create a mock pipeline
 Test auto trigger
 Test auto trigger second time
+Test auto trigger second time
